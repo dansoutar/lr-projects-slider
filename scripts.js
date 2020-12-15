@@ -1,9 +1,7 @@
-
-alert('connected !!');
-
 // ---------------------------------
 // DOM Elements
 // ---------------------------------
+
 const slideTrack = qs(".all-slides");
 
 // ---------------------------------
@@ -15,12 +13,12 @@ const mouse = {
   x: 0,
   y: 0
 };
-let mousePressed = false;
 
 // SlideTrack
 const slideTrackPos = {
-  x: slideTrack.getBoundingClientRect().x + 200,
-  y: slideTrack.getBoundingClientRect().y
+  x: rect(slideTrack).x,
+  y: rect(slideTrack).y,
+  center: rect(slideTrack).width / 2
 };
 
 // ---------------------------------
@@ -35,7 +33,10 @@ function animate() {
 
   slideTrackPos.x = lerp(slideTrackPos.x, mouse.x, 0.08);
 
-  slideTrack.style.transform = `translateX(${slideTrackPos.x}px)`;
+  slideTrack.style.transform = `
+  translateX(${slideTrackPos.x - slideTrackPos.center}px)
+  skewX(${(mouse.x - slideTrackPos.x) / 80}deg)
+  `;
 }
 animate();
 
